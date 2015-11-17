@@ -1,0 +1,26 @@
+body {
+	background-color: #223;
+	color: #fef;
+	font-family: 'Open Sans', sans-serif;
+	text-align: center;
+}
+
+.on-air-sign {
+	font-size: 3em;
+	background-color: #300;
+	padding: .2em;
+}
+
+.on-air-sign[data-on-air=false] {
+	background-color: #300;
+	color: #888;
+}
+
+.on-air-sign[data-on-air=true] {
+	background-color: #D12;
+	box-shadow: 0 0 20px #E00;
+}
+
+.on-air-sign h1 {
+	margin: 0;
+}
