@@ -22,7 +22,6 @@ function searchHandler () {
 	}
 }
 
-
 function checkLive (streamData) {
 	var value = $("#search-inp").val();
 
@@ -45,12 +44,11 @@ function channelError () {
 function updateStream (streamData) {
 	toggleOnAir(true);
 	console.log(streamData);
-	$('#viewers').text(streamData.viewers)
+	$('#viewers').text(streamData.viewers);
 	updateChannel(streamData.channel);
 }
 
-function toggleOnAir (toggle)
-{
+function toggleOnAir (toggle) {
 	if (toggle) {
 		$("#sign").attr("data-on-air", true);
 	}
@@ -62,5 +60,3 @@ function toggleOnAir (toggle)
 function updateChannel(channelData) {
 	$("#channel").text(channelData.displayName);
 }
-
-
