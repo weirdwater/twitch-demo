@@ -45,8 +45,8 @@ function channelError () {
 function updateStream (streamData) {
 	toggleOnAir(true);
 	console.log(streamData);
+	$('#viewers').text(streamData.viewers)
 	updateChannel(streamData.channel);
-
 }
 
 function toggleOnAir (toggle)
