@@ -1,62 +1,36 @@
 window.onload = init;
 
+var ON  = 1;
+var OFF = 0;
+var SIGN = $('#sign');
+
 function init() {
 
 	// Event listeners
 	$("#search-btn").click(searchHandler);
 }
 
-function turnSignOn() {
-	$('#sign').attr('data-on-air', "true");
+function searchHandler() {
+	powerSign();
 }
 
-function searchHandler () {
-	var value = $("#search-inp").val();
-
-	if (value) {
-		$.when($.getJSON("https://api.twitch.tv/kraken/streams/" + value))
-			.then(checkLive, channelError);
+/**
+ * Acts like a toggle if no paramaters are given.
+ */
+function powerSign(state) {
+	switch (state) {
+		case 0:
+			SIGN.attr('data-on-air', false);
+			break;
+		case 1:
+			SIGN.attr('data-on-air', true);
+			break;
+		default:
+			if (SIGN.attr('data-on-air') == 'true') {
+				SIGN.attr('data-on-air', false);
+			}
+			else {
+				SIGN.attr('data-on-air', true);
+			}
 	}
-	else {
-		alert("Please enter a freaking channel name!");
-	}
-}
-
-function checkLive (streamData) {
-	var value = $("#search-inp").val();
-
-	if (streamData.stream) {
-
-		updateStream(streamData.stream);
-	}
-	else {
-		$("#channel").text(value);
-		toggleOnAir(true);
-	}
-}
-
-function channelError () {
-	$("#channel").text("Channel does not exist!");
-	toggleOnAir(false);
-}
-
-
-function updateStream (streamData) {
-	toggleOnAir(true);
-	console.log(streamData);
-	$('#viewers').text(streamData.viewers);
-	updateChannel(streamData.channel);
-}
-
-function toggleOnAir (toggle) {
-	if (toggle) {
-		$("#sign").attr("data-on-air", true);
-	}
-	else {
-		$("#sign").attr("data-on-air", false);
-	}
-}
-
-function updateChannel(channelData) {
-	$("#channel").text(channelData.displayName);
 }
