@@ -31,6 +31,7 @@ function updateChannelInfo(data) {
 	$('#channel').text(data.display_name);
 	$('#views').text(data.views);
 	$('#followers').text(data.followers);
+	requestStream();
 	streamUpdateInterval = setInterval(requestStream, 2000);
 }
 
