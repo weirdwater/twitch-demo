@@ -24,24 +24,30 @@
 
 	// CHANNEL DATA
 	function requestChannel(channelName) {
-		$.when($.getJSON('https://api.twitch.tv/kraken/channels/' + channelName))
-			.then(updateChannelInfo, requestChannelError);
+		$.getJSON('https://api.twitch.tv/kraken/channels/' + channelName)
+			.then(
+				// Success
+				updateChannelInfo,
+				// Failed
+				requestError
+			);
 	}
 
 	function updateChannelInfo(data) {
 		$('#channel').text(data.display_name);
 		$('#views').text(data.views);
 		$('#followers').text(data.followers);
+		$('#embed').attr('src', 'http://player.twitch.tv/?channel=' + data.display_name);
 		requestStream();
 		streamUpdateInterval = setInterval(requestStream, 2000);
 	}
 
-	function requestChannelError(data) {
+	function requestError(data) {
 		var error = data.responseJSON;
 		switch (error.status) {
 			case 404:
 				// Handle non existing channelname
-				alert('Channel does not exist.');
+				alert(error.message);
 				break;
 			default:
 				console.error(error.status + ' ' + error.error + ': ' + error.message);
@@ -53,8 +59,13 @@
 	function requestStream() {
 		var channelName = $('#channel').text();
 		console.log(channelName);
-		$.when($.getJSON('https://api.twitch.tv/kraken/streams/' + channelName))
-			.then(updateStreamInfo, requestChannelError);
+		$.getJSON('https://api.twitch.tv/kraken/streams/' + channelName)
+			.then(
+				// Success
+				updateStreamInfo,
+				// Failed
+				requestError
+			);
 	}
 
 	function updateStreamInfo(data) {

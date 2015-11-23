@@ -9,7 +9,7 @@ body {
 	font-size: 3em;
 	background-color: #300;
 	max-width: 600px;
-	margin: 0 auto;
+	margin: 0 auto 2em;
 	padding: .2em;
 	transition: 1.5s;
 	transition-timing-function: ease-all;
